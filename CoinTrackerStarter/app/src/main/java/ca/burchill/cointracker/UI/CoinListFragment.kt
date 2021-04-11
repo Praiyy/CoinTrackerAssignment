@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ca.burchill.cointracker.R
+import ca.burchill.cointracker.database.DatabaseCoin
 import ca.burchill.cointracker.databinding.FragmentCoinListBinding
+import ca.burchill.cointracker.domain.Coin
 import ca.burchill.cointracker.viewModels.CoinListViewModel
 
 
 class CoinListFragment : Fragment() {
 
     private val viewModel: CoinListViewModel by lazy {
-        ViewModelProvider(this).get(CoinListViewModel::class.java)
+        val activity = requireNotNull(this.activity)
+        ViewModelProvider(this,CoinListViewModel.Factory(activity.application)).get(CoinListViewModel::class.java)
     }
 
     override fun onCreateView(
